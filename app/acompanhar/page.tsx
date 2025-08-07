@@ -1,34 +1,53 @@
-// app/acompanhar/page.tsx
 'use client';
+
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+import { useEffect } from 'react';
+
+// Corrige ícones do Leaflet que quebram no Next.js
+delete (L.Icon.Default.prototype as any)._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'marker-icon-2x.png',
+  iconUrl: 'marker-icon.png',
+  shadowUrl: 'marker-shadow.png',
+});
 
 export default function AcompanharServico() {
   const router = useRouter();
 
   return (
     <div className="relative h-screen w-full">
-      {/* Mapa (imagem simulada ou componente real futuramente) */}
-      <Image
-        src="/mapa.png" // coloque o mapa estático em /public/mapa.png
-        alt="Mapa"
-        fill
-        className="object-cover"
-      />
+      {/* Mapa real com react-leaflet */}
+      <MapContainer
+        center={[-23.55052, -46.633308]} // São Paulo, por exemplo
+        zoom={13}
+        scrollWheelZoom={false}
+        className="h-full w-full z-0"
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Marker position={[-23.55052, -46.633308]}>
+          <Popup>
+            Seu motorista está aqui 🚗
+          </Popup>
+        </Marker>
+      </MapContainer>
 
-      {/* Botão voltar e perfil */}
-      <div className="absolute top-4 left-4 right-4 flex justify-between items-center">
-        <button className="bg-white rounded-full w-9 h-9 flex items-center justify-center shadow">←</button>
-        <Image src="/avatar.png" alt="Perfil" width={36} height={36} className="rounded-full border" />
-      </div>
+
 
       {/* Botão GPS */}
-      <div className="absolute top-16 right-4 bg-white rounded-full p-2 shadow">
+      {/* <Image src="/profile.png" alt="Perfil" width={36} height={36} className="absolute top-16 rounded-full border right-4" /> */}
+      {/* <div className="absolute top-16 right-4 bg-white rounded-full p-2 shadow z-10">
         📍
-      </div>
+      </div> */}
 
       {/* Card inferior */}
-      <div className="absolute bottom-4 left-4 right-4 bg-white rounded-2xl p-4 shadow-lg">
+      <div className="absolute bottom-4 left-4 right-4 bg-white rounded-2xl p-4 shadow-lg z-10">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="font-semibold">S 500 Sedan</h2>
