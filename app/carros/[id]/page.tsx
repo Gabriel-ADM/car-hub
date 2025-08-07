@@ -1,6 +1,7 @@
 // app/carros/[id]/page.tsx
 'use client'
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface Params {
   params: {
@@ -68,7 +69,9 @@ export default function CarDetail({ params }: Params) {
 
       <div className="flex justify-between items-center">
         <p className="text-lg font-bold">${car.price} <span className="text-sm font-normal">/ Serviço</span></p>
-        <button className="bg-blue-600 text-white rounded-lg px-4 py-2 text-sm">Solicitar</button>
+        <Link href={`/acompanhar`}>
+          <button className="bg-blue-600 text-white rounded-lg px-4 py-2 text-sm">Solicitar</button>
+        </Link>
       </div>
     </div>
   );
