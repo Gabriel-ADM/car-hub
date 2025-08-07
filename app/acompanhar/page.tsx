@@ -22,7 +22,7 @@ export default function AcompanharServico() {
     <div className="relative h-screen w-full">
       {/* Mapa real com react-leaflet */}
       <MapContainer
-        center={[-23.55052, -46.633308]} // São Paulo, por exemplo
+        center={[-15.8295, -48.0616]}
         zoom={13}
         scrollWheelZoom={false}
         className="h-full w-full z-0"

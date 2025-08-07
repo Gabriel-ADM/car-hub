@@ -1,9 +1,11 @@
 // app/avaliar/page.tsx
 'use client';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function AvaliarServico() {
+  const router = useRouter();
   const [rating, setRating] = useState(3);
   const [comentario, setComentario] = useState('');
 
@@ -49,7 +51,7 @@ export default function AvaliarServico() {
 
         {/* Botão enviar (fictício) */}
         <button
-          onClick={() => alert(`Avaliação enviada com ${rating} estrelas.`)}
+          onClick={() => {alert(`Avaliação enviada com ${rating} estrelas.`); router.push('/')}}
           className="w-full bg-blue-600 text-white py-2 rounded-lg text-sm"
         >
           Enviar avaliação
